@@ -203,7 +203,7 @@ public class VideoResource {
     @Transactional
     public Response supprimerr(@PathParam("titre") String titre) throws IOException {
 
-        VideoMedia.delete("titre", titre);
+        //VideoMedia.delete("titre", titre);
 
         return Response.ok().build();
     }

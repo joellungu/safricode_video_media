@@ -23,7 +23,7 @@ import jakarta.persistence.Entity;
  *     }
  * }
  */
-@Entity
-public class MyEntity extends PanacheEntity {
+//@Entity
+public class MyEntity {
     public String field;
 }

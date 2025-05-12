@@ -43,30 +43,30 @@ public class VideoMediaController {
     @POST
     @Transactional
     public Response create(VideoMedia videoMedia) {
-        videoMedia.persist();
+        //videoMedia.persist();
         return Response.status(Response.Status.CREATED).entity(videoMedia).build();
     }
 
     // READ ALL
-    @GET
-    public List<VideoMediaSummary> getAll() {
-        List<VideoMedia> videoMedias = VideoMedia.listAll(Sort.by("titre"));
-        List<VideoMediaSummary> summaries = ((List<VideoMedia>) videoMedias).stream()
-    .map(v -> new VideoMediaSummary(v.id, v.titre))
-    .toList();
+    // @GET
+    // public List<VideoMediaSummary> getAll() {
+    //     List<VideoMedia> videoMedias = VideoMedia.listAll(Sort.by("titre"));
+    //     List<VideoMediaSummary> summaries = ((List<VideoMedia>) videoMedias).stream()
+    // .map(v -> new VideoMediaSummary(v.id, v.titre))
+    // .toList();
             
-        return summaries;
-    }
+    //     return summaries;
+    // }
 
     // READ ONE
     @GET
     @Path("/{id}")
     public Response getById(@PathParam("id") Long id) {
-        VideoMedia videoMedia = VideoMedia.findById(id);
-        if (videoMedia == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.ok(videoMedia).build();
+        // VideoMedia videoMedia = VideoMedia.findById(id);
+        // if (videoMedia == null) {
+        //     return Response.status(Response.Status.NOT_FOUND).build();
+        // }
+        return Response.ok().build();
     }
 
     // UPDATE
@@ -74,15 +74,15 @@ public class VideoMediaController {
     @Path("/{id}")
     @Transactional
     public Response update(@PathParam("id") Long id, VideoMedia updatedVideo) {
-        VideoMedia videoMedia = VideoMedia.findById(id);
-        if (videoMedia == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        // VideoMedia videoMedia = VideoMedia.findById(id);
+        // if (videoMedia == null) {
+        //     return Response.status(Response.Status.NOT_FOUND).build();
+        // }
         
-        videoMedia.titre = updatedVideo.titre;
-        videoMedia.video = updatedVideo.video;
+        // videoMedia.titre = updatedVideo.titre;
+        // videoMedia.video = updatedVideo.video;
         
-        return Response.ok(videoMedia).build();
+        return Response.ok().build();
     }
 
     // DELETE
@@ -90,10 +90,10 @@ public class VideoMediaController {
     @Path("/{id}")
     @Transactional
     public Response delete(@PathParam("id") Long id) {
-        boolean deleted = VideoMedia.deleteById(id);
-        if (!deleted) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        // boolean deleted = VideoMedia.deleteById(id);
+        // if (!deleted) {
+        //     return Response.status(Response.Status.NOT_FOUND).build();
+        // }
         return Response.noContent().build();
     }
 
@@ -102,12 +102,12 @@ public class VideoMediaController {
     @Path("/{id}/video")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response getVideo(@PathParam("id") Long id) {
-        VideoMedia videoMedia = VideoMedia.findById(id);
-        if (videoMedia == null || videoMedia.video == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.ok(videoMedia.video)
-               .header("Content-Disposition", "attachment; filename=\"" + videoMedia.titre + ".mp4\"")
+        // VideoMedia videoMedia = VideoMedia.findById(id);
+        // if (videoMedia == null || videoMedia.video == null) {
+        //     return Response.status(Response.Status.NOT_FOUND).build();
+        // }
+        return Response.ok()
+               .header("Content-Disposition", "attachment; filename=\".mp4\"")
                .build();
     }
 }
