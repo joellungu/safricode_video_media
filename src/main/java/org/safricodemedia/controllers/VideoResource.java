@@ -53,10 +53,10 @@ public class VideoResource {
         try{
             //String[] nom = body.filename.split("\\");
             System.out.println("Filename: "+body.filename);
-        Files.createDirectories(java.nio.file.Path.of(VIDEO_FOLDER));
-        java.nio.file.Path target = java.nio.file.Path.of(VIDEO_FOLDER, body.filename);
-        Files.write(target, body.fileData);
-        String fullUrl = "/videos/" + body.filename;
+            Files.createDirectories(java.nio.file.Path.of(VIDEO_FOLDER));
+            java.nio.file.Path target = java.nio.file.Path.of(VIDEO_FOLDER, body.filename);
+            Files.write(target, body.fileData);
+            String fullUrl = "/videos/" + body.filename;
         } catch(Exception ex){
             System.out.println("Erreur: "+ex);
         }
@@ -204,6 +204,16 @@ public class VideoResource {
     public Response supprimerr(@PathParam("titre") String titre) throws IOException {
 
         //VideoMedia.delete("titre", titre);
+        //Path filePath = Paths.get("chemin/vers/fichier.txt");
+
+        try {
+            java.nio.file.Path target = java.nio.file.Path.of(VIDEO_FOLDER, titre);
+            Files.delete(target);
+            //Files.delete(filePath);
+            System.out.println("Fichier supprimé avec succès.");
+        } catch (IOException e) {
+            System.err.println("Erreur de suppression du fichier : " + e.getMessage());
+        }
 
         return Response.ok().build();
     }
