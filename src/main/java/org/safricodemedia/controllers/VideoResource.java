@@ -34,8 +34,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ApplicationScoped
 public class VideoResource {
 
-    //@Inject
-    //Notification notification;
+    @Inject
+    VideoService videoService;
 
     private static final String VIDEO_FOLDER = "videos";
     private static final java.nio.file.Path VIDEO_DIR = Paths.get("videos");
@@ -88,10 +88,14 @@ public class VideoResource {
                 java.nio.file.Path fichier = resultat.get();
                 System.out.println("Fichier trouvé : " + fichier.toAbsolutePath());
                 // Tu peux maintenant lire le fichier ou l'utiliser
-                return Response.ok(fichier.toFile()).build();
+                return Response.ok(fichier.toFile())
+                .header("Content-Disposition", "attachment; filename=\"" + titre + "\"")
+                .header("Content-Length", Files.size(fichier.getFileName()))
+                .header("Accept-Ranges", "bytes") // Permet la reprise des téléchargements
+                .build();
             } else {
                 System.out.println("Fichier non trouvé.");
-            return Response.status(404).build();
+                return Response.status(404).build();
             }
         } catch (IOException e) {
             e.printStackTrace();
