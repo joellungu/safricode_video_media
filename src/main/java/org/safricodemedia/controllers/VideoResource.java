@@ -89,9 +89,9 @@ public class VideoResource {
                 System.out.println("Fichier trouvé : " + fichier.toAbsolutePath());
                 // Tu peux maintenant lire le fichier ou l'utiliser
                 return Response.ok(fichier.toFile())
-                .header("Content-Disposition", "attachment; filename=\"" + titre + "\"")
-                .header("Content-Length", Files.size(fichier.getFileName()))
-                .header("Accept-Ranges", "bytes") // Permet la reprise des téléchargements
+                // .header("Content-Disposition", "attachment; filename=\"" + titre + "\"")
+                // .header("Content-Length", Files.size(fichier.getFileName()))
+                // .header("Accept-Ranges", "bytes") // Permet la reprise des téléchargements
                 .build();
             } else {
                 System.out.println("Fichier non trouvé.");

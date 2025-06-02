@@ -6,6 +6,7 @@ import org.safricodemedia.models.Utilisateur;
 
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -41,6 +42,41 @@ public class UtilisateurController {
             //
             return Response.ok().build();
         }
+    }
+
+    @PUT
+    @Path("videos")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response updateListe(List<String> videos, @QueryParam("idUser") String idUser) {
+        //
+        Utilisateur utilisateur = Utilisateur.find("idUser", idUser).firstResult();
+        //
+        if(utilisateur != null){
+            //
+            utilisateur.videos.addAll(videos);
+            //
+        }
+        return Response.ok().build();
+    }
+
+    
+    @DELETE
+    @Path("supprimer")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response supprimerVideo(String video, @QueryParam("idUser")  String idUser) {
+        //
+        System.out.println("IdUser: "+idUser);
+        //
+        Utilisateur utilisateur = Utilisateur.find("idUser", idUser).firstResult();
+        //
+        utilisateur.videos.remove(video);
+        //
+        return Response.ok().build();
+        
     }
 
     @GET

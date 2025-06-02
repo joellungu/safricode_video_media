@@ -19,7 +19,7 @@ import java.util.function.Predicate;
 
 import org.safricodemedia.models.VideoInfo;
 
-@ServerEndpoint("/ws/video/{username}/{video}")
+@ServerEndpoint("/ws/video/{username}/{idUser}/{video}")
 @ApplicationScoped
 public class WebSocketService {
 
@@ -30,17 +30,20 @@ public class WebSocketService {
     @SuppressWarnings("unchecked")
     @OnOpen
     public void onOpen(Session session, @PathParam("username") String username
+    , @PathParam("idUser") String idUser
     , @PathParam("video") String video) {
         //Session
         System.out.println("Nom connecté : " + username);
         //
         HashMap mHashMap = new HashMap<>();
         mHashMap.put("username", username);
+        mHashMap.put("idUser", idUser);
         mHashMap.put("video", video);
         mHashMap.put("session", session);
         //
         sessions.add(mHashMap);
         System.out.println("Client connecté : " + username);
+        System.out.println("Client connecté : " + idUser);
         System.out.println("Client connecté : " + video);
         System.out.println("Client connecté : " + session.getId());
     }
@@ -79,9 +82,10 @@ public class WebSocketService {
             List<HashMap> l = new LinkedList<>();
             //
             sessions.forEach((e) -> {
-                
+                //
                 HashMap dada = new HashMap<>();
                 dada.put("username", e.get("username"));
+                dada.put("idUser", e.get("idUser"));
                 dada.put("video", e.get("video"));
                 l.add(dada);
             });
