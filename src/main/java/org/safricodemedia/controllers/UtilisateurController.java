@@ -79,6 +79,20 @@ public class UtilisateurController {
         
     }
 
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response supprimerUser(@QueryParam("idUser")  String idUser) {
+        //
+        System.out.println("IdUser: "+idUser);
+        //
+        Utilisateur.deleteById(idUser);
+        //
+        return Response.ok().build();
+        
+    }
+
     @GET
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
